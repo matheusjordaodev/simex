@@ -361,28 +361,30 @@ def update_graphs(start_year, end_year, selected_category, map_click_data, bar_c
 ))
     # Ajusta o layout do gráfico de barras para exibir valores maiores em cima e configura a legenda.
     bar_yearly_fig.update_layout(
-        title={'text': f"Área Acumulada de Exploração Madeireira - {title_text}", 'x': 0.5},
-        titlefont=dict(size=12),
-        width=700,
-        xaxis_title='Hectares (ha)',
-        yaxis_title='Área de Interesse',
-        bargap=0.1,
-        legend=dict(
-            orientation="h",  # Configura a orientação da legenda para horizontal
-            yanchor="top",  # Alinha ao topo da área de legenda
-            y=-0.2,  # Posiciona a legenda abaixo do gráfico
-            xanchor="center",  # Centraliza a legenda horizontalmente
-            x=0.5,  # Posiciona a legenda no centro da largura do gráfico
-            font=dict(
-                size=8  # Ajusta o tamanho da fonte das legendas
-            )
-        ),
-         yaxis=dict(
+    title={
+        'text': f"Área Acumulada de Exploração Madeireira - {title_text}",
+        'x': 0.5,
+        'font': {'size': 12}        # movido para dentro de title
+    },
+    width=700,
+    xaxis_title='Hectares (ha)',
+    yaxis_title='Área de Interesse',
+    bargap=0.1,
+    legend=dict(
+        orientation="h",  # horizontal
+        yanchor="top",
+        y=-0.2,
+        xanchor="center",
+        x=0.5,
+        font=dict(size=8)
+    ),
+    yaxis=dict(
         categoryorder='array',
         categoryarray=df_top_10.sort_values(by='area_ha', ascending=True)['name'].tolist(),
-        tickfont=dict(size=8)  # Reduz o tamanho da fonte
-                     ),
-    )
+        tickfont=dict(size=8)
+    ),
+)
+
 
     # Mapa com top 10 áreas usando GeoJSON.
     if selected_areas_store:
